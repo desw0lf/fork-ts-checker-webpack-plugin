@@ -19,11 +19,11 @@ function tapDoneToAsyncGetIssues(
 ) {
   // HACK -- START
   function HACK_fixLogger() {
-    const tempLogger = config.logger || {};
+    const tempLogger: Partial<ForkTsCheckerWebpackPluginConfig['logger']> = config.logger || {};
     return {
-        log: (x) => console.log(x),
-        error: (x) => console.error(x),
-        ...tempLogger,
+      log: (x: string) => console.log(x),
+      error: (x: string) => console.error(x),
+      ...tempLogger,
     };
   }
   config.logger = HACK_fixLogger();
