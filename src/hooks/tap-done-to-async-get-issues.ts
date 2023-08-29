@@ -17,6 +17,17 @@ function tapDoneToAsyncGetIssues(
   config: ForkTsCheckerWebpackPluginConfig,
   state: ForkTsCheckerWebpackPluginState
 ) {
+  // HACK -- START
+  function HACK_fixLogger() {
+    const tempLogger = config.logger || {};
+    return {
+        log: (x) => console.log(x),
+        error: (x) => console.error(x),
+        ...tempLogger,
+    };
+  }
+  config.logger = HACK_fixLogger();
+  // HACK -- END
   const hooks = getPluginHooks(compiler);
   const { debug } = getInfrastructureLogger(compiler);
 
